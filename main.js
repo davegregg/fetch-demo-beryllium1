@@ -57,13 +57,16 @@ function displayForecast (forecast) {
     const weatherPeriods = forecast.properties.periods
     const currentWeather = weatherPeriods[0]
 
+    // Build an element containing the current temperature
     const weatherElement = document.createElement("div")
     weatherElement.classList.add("current-weather")
     weatherElement.append(currentWeather.temperature + currentWeather.temperatureUnit)
     
+    // Build an image element containing the current weather icon and append it
     const weatherImage = document.createElement("img")
     weatherImage.src = currentWeather.icon
     weatherElement.append(weatherImage)
 
+    // Append the final weather element to some element which is already on the page
     main.append(weatherElement)
 }
