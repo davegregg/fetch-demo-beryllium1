@@ -34,12 +34,35 @@
                     }
 */
 
+/*  According to the Authentication section of the NWS API
+    (https://www.weather.gov/documentation/services-web-api):
+
+    "A User Agent is required to identify your application.
+    This string can be anything, and the more unique to your 
+    application the less likely it will be affected by a 
+    security event. If you include contact information (website 
+    or email), we can contact you if your string is associated 
+    to a security event."
+
+    EXAMPLES:
+        User-Agent: "(myweatherapp.com, contact@myweatherapp.com)"
+            or
+        User-Agent: "Beryllium 1, your-name, your-email-address"
+            or
+        User-Agent: "flkj29vnl2jnrfc3198hn"
+*/
+
+const headers = new Headers({
+    "User-Agent": "Beryllium 1, DMG, dmg@kenzie.academy"
+})
+
 navigator.geolocation.getCurrentPosition(getPointsData)
 
 function getPointsData (position) {
     // EXAMPLE: GET https://api.weather.gov/points/39.7456,-97.0892
     const url = `https://api.weather.gov/points/${position.coords.latitude},${position.coords.longitude}`
-    fetch(url)
+
+    fetch(url, headers)
         .then(response => response.json())
         .then(getHourlyForecast)
 }
@@ -47,7 +70,7 @@ function getPointsData (position) {
 function getHourlyForecast (pointObject) {
     // EXAMPLE: GET https://api.weather.gov/gridpoints/TOP/31,80/forecast/hourly
     const url = pointObject.properties.forecastHourly
-    fetch(url)
+    fetch(url, headers)
         .then(response => response.json())
         .then(displayForecast)
 }
