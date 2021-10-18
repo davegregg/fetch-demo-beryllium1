@@ -1,0 +1,5 @@
+GET https://api.weather.gov/points/39.7456,-97.0892
+
+###
+
+GET https://api.weather.gov/gridpoints/TOP/31,80/forecast/hourly
